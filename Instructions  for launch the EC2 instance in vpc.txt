@@ -1,0 +1,54 @@
+Launch EC2 instance in Virtual Private Cloud 
+
+ABOUT THIS LAB
+	In this lab scenario, Alfredo of Alfredo's Pizza is looking to set up a website to advertise his pizza shop. We are going to help him by getting the server primed and ready to host his website. During this lab, you'll have the opportunity to explore and understand foundational and compute services provided by AWS. We will create a virtual private cloud (VPC), subnets across multiple Availability Zones (AZs), routes and an internet gateway, and more. These services are the foundation of networking architecture inside of AWS and cover concepts such as infrastructure, design, routing, and security.
+LEARNING OBJECTIVES
+	Create a VPC
+	Create a Public Subnet
+	Create Routes and Configure Internet Gateway
+	Launch EC2 Instance in Subnet
+	Access EC2 Instance
+
+
+Instructions:
+
+Step1: create VPC
+
+	Console > VPC> create the VPC > name: “satheesh-vpc” ,  IPV4 CIDR=”manual”, IPv4 CIDR =“10.0.0.0/16” ,
+IPv6 CIDR=”No IPV6 CIDR block ”  Tenancy=”shared ”  [create VPC ]
+
+Step2:create a public subnet 
+
+	 VPC > subnet > create subnet >(if) select “satheesh-vpc”,(id there) name= “pub-sub” preference=”us-east-1” ,IPV4 =”10.0.0.0/24” 	[create subnet].
+
+
+
+
+ Step3: Create route and internet gateway
+
+	Select VPC and take action >  modify the auto-assign the IP settings  (Edit subnet settings)  >auto assign ipv4 enable (select) > save 
+	Internet Gateway > create Internet gateway > name=”satheesh_IGW” > create internet gateway 
+
+	In InternetGateWay, action> attach to VPC >  select vpc > attach Internet gateway 
+
+
+	Configure routing 
+
+	Route table > create route table > name=”pub_rt” vpc=”satheesh-vpc”  , create Route Table
+	> Edit routes > add routes > destination=”0.0.0.0/0” target=“ igw-satheesh id”    ,save changes
+
+	Allow the internet via IGW
+
+	RT > subnet association > edit  > select route table > save changes  
+
+step4:Launch EC2 instance  in subnet 
+
+	 EC2 : 
+
+	name=”pub-instance”
+ 	Network traffic=”only allow SSH”    Launch Instance
+
+	Access EC2 instance 
+
+	Select instance > connect > EC2 instance connect > connect > terminal open (if connected )
+ 	# ls -l 
